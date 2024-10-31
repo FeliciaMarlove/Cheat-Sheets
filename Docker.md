@@ -1,8 +1,8 @@
 # Docker cheat sheet
 
-Image = the packaged artifact that can be moved around -> not running
-
-Container = application running in its environment
+| 📝 | Image = the packaged artifact that can be moved around -> not running |
+|----|:----------------------------------------------------------------------|
+| 📝 | Container = application running in its environment                    |
 
 ### See all containers (even inactive)
 
