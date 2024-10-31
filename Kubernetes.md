@@ -161,3 +161,5 @@ K8s node (= server that runs the Kubernetes runtime and hosts the pods)
 * Service: Provides a single IP for the cluster. The cluster IP is only visible inside the cluster.
 * Load balancer: Exposes an external IP to outside the cluster and routes the traffic to the service. Lives outside the cluster (usually provided by a Cloud provider).
 * Ingress controller (service mesh): Load balancer that can handle several services (=> several IP addresses available for the cluster.). Lives inside the cluster.
+
+![image](./assets/kubernetes_service.png)
