@@ -29,14 +29,22 @@
 * [helm](#helm)
     + [List all deployments](#list-all-deployments)
     + [Dry run (simulate installation process) with detailed debug output](#dry-run-simulate-installation-process-with-detailed-debug-output)
-* [Relationship: Container (Docker) - Orchestrator (K8s) - Package manager (helm)](#relationship-container-docker-orchestrator-k8s-package-manager-helm)
-* [Entry points](#entry-points)
+* [Relationship: Container (Docker) - Orchestrator (K8s) - Package manager (helm)](#relationship-container-docker---orchestrator-k8s---package-manager-helm)
+* [Value injection from a CI/CD pipeline to the application](#value-injection-from-a-cicd-pipeline-to-the-application)
+* [More on how Kubernetes works](#more-on-how-kubernetes-works)
+     + [Entry points](#entry-points)
+     + [Replicaset vs Daemonset](#replicaset-vs-daemonset)
+     + [Service](#service)
+     + [Pod](#pod)
+     + [State](#state)
+     + [Loose coupling](#loose-coupling)
+     + [Reference to configMap values in manifests](#reference-to-configmap-values-in-manifests)
 
 <!-- TOC end -->
 
-## <span style="background:darkcyan">Kubectl</span>
+## Kubectl
 
-### <span style="background:blue">Context</span>
+### <span style="background:blue">Context
 
 | 📝 | context = group of access parameters (cluster, user, namespace...) |
 |----|:-------------------------------------------------------------------|
@@ -57,7 +65,7 @@
 
 `kubectl config rename-context old-name new-name`
 
-### <span style="background:blue">Namespace</span>
+### <span style="background:blue">Namespace
 
 #### List all namespaces in cluster
 
@@ -87,7 +95,7 @@
 
 `kubectl get pods -o wide`
 
-### <span style="background:blue">Deployment</span>
+### <span style="background:blue">Deployment
 
 #### Describe a deployment (name, namespace, labels, annotations, selector, replicas, strategy, pod template, events)
 
@@ -97,7 +105,7 @@
  
 `kubectl get deployment my-deployment`
 
-### <span style="background:blue">Pod and node</span>
+### <span style="background:blue">Pod and node
 
 #### List all pods in the current namespace
 
@@ -130,7 +138,7 @@
 | 📝 Open output logs and only show lines with "abc" `grep "abc" app.log`     |
 | 📝 Make it case insensitive with the parameter `-i`                         |
 
-## <span style="background:darkcyan">helm</span>
+## helm
 
 ### List all deployments
 
@@ -140,7 +148,7 @@
 
 `helm install release_name ./chart_path --dry-run --debug`
 
-## <span style="background:darkcyan">Relationship</span>: Container (Docker) - Orchestrator (K8s) - Package manager (helm)
+## Relationship: Container (Docker) - Orchestrator (K8s) - Package manager (helm)
 
 K8s Cluster (= Kubernetes environment)
 
@@ -156,10 +164,83 @@ K8s Cluster (= Kubernetes environment)
 
 K8s node (= server that runs the Kubernetes runtime and hosts the pods)
 
-## <span style="background:darkcyan">Entry points</span>
+## Value injection from a CI/CD pipeline to the application
+
+| CI/CD pipeline | helm               | Kubernetes                                                                                                        | Container (Linux env)                      | Application (source code)                                   |
+|----------------|--------------------|-------------------------------------------------------------------------------------------------------------------|--------------------------------------------|-------------------------------------------------------------|
+| variable       | values.yml         | configmap/secrets/config file (reference configurations and provide them to the container)                        | Environment variable (or volume for files) | app properties                                              |
+| FOO_BAR = 1    | foo: bar: $FOO_BAR | data: FOO_BAR = {{.Values.foo.bar}} (name used in the values.yaml file to do the mapping, could be whatever name) | FOO_BAR = (value received from Kubernetes) | foo.bar = ${{foo_bar}} (syntax depends on project language) |
+
+## More on how Kubernetes works
+
+### Entry points
 
 * Service: Provides a single IP for the cluster. The cluster IP is only visible inside the cluster.
 * Load balancer: Exposes an external IP to outside the cluster and routes the traffic to the service. Lives outside the cluster (usually provided by a Cloud provider).
 * Ingress controller (service mesh): Load balancer that can handle several services (=> several IP addresses available for the cluster.). Lives inside the cluster.
 
 ![image](./assets/kubernetes_service.png)
+
+### Replicaset vs Daemonset
+
+Replicaset: 2 => 2 pods, distribution is not transparent
+Daemonset: 2 => 2 pods, but each pod is distributed on a different node (1 pod per node)
+
+### Service
+
+Abstraction to group pods under a common access policy. They have a virtual IP which clients within the cluster can access and proxied to the pods in the service.
+
+### Pod
+
+Collection of containers that share the same resources.
+
+All containers in a pod have the same host.
+
+Inside the pod, each container has a localhost address (127.0.0.1) and a static port (user defined in the pod definition) => easy to move from a local/uncontainerized environment to a containerized environment. 
+These ports are not visible outside the pod.
+
+The pod has an IP address, fix and unique in the cluster.
+
+A pod is created with the resource type (kind) "deployment". The kind "pod" is hardly ever used, it creates a standalone pod that is not managed by the controller.
+
+### State
+
+Kubernetes components are stateless. They read and update their state in a database provided by the Kubernetes API.
+That database is a key-value store named "etcd". When a component restarts, it retrieves its state from etcd.
+
+### Loose coupling
+
+```
+kind: Service                       kind: Deployment 
+   spec:                                 metadata: 
+        selector:                            labels: 
+            app: APPNAME                        app: APPNAME 
+            component:  
+```
+
+Any pod with label app: APPNAME will be targeted by the service with that selector
+
+### Reference to configMap values in manifests
+
+Create a container with an environment variable with a specific key of a configMap
+
+```
+spec: 
+   containers: 
+       - name: <name> 
+            valueFrom:  
+               configMapKeyRef: 
+                  name: <configmap_name> 
+                  key: <key> 
+```
+
+Create a container with environment variables with all keys of a configMap
+
+```
+spec: 
+   containers: 
+       - name: <name> 
+            envFrom:  
+               configMapRef: 
+                  name: <configmap_name> 
+```
