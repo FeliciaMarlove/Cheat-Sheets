@@ -44,7 +44,7 @@
 
 ## Kubectl
 
-### <span style="background:blue">Context
+### Context
 
 | 📝 | context = group of access parameters (cluster, user, namespace...) |
 |----|:-------------------------------------------------------------------|
@@ -57,7 +57,7 @@
 
 `kubectl config current-context`
 
-#### Set the current context to my-cluster-name 
+#### Set the current context to my-cluster-name
 
 `kubectl config use-context my-cluster-name`
 
@@ -65,7 +65,7 @@
 
 `kubectl config rename-context old-name new-name`
 
-### <span style="background:blue">Namespace
+### Namespace
 
 #### List all namespaces in cluster
 
@@ -95,7 +95,7 @@
 
 `kubectl get pods -o wide`
 
-### <span style="background:blue">Deployment
+### Deployment
 
 #### Describe a deployment (name, namespace, labels, annotations, selector, replicas, strategy, pod template, events)
 
@@ -105,7 +105,7 @@
  
 `kubectl get deployment my-deployment`
 
-### <span style="background:blue">Pod and node
+### Pod and node
 
 #### List all pods in the current namespace
 
@@ -168,8 +168,10 @@ K8s node (= server that runs the Kubernetes runtime and hosts the pods)
 
 | CI/CD pipeline | helm               | Kubernetes                                                                                                        | Container (Linux env)                      | Application (source code)                                   |
 |----------------|--------------------|-------------------------------------------------------------------------------------------------------------------|--------------------------------------------|-------------------------------------------------------------|
-| variable       | values.yml         | configmap/secrets/config file (reference configurations and provide them to the container)                        | Environment variable (or volume for files) | app properties                                              |
+| variable       | values.yml *       | configmap/secrets/config file (reference configurations and provide them to the container)                        | Environment variable (or volume for files) | app properties                                              |
 | FOO_BAR = 1    | foo: bar: $FOO_BAR | data: FOO_BAR = {{.Values.foo.bar}} (name used in the values.yaml file to do the mapping, could be whatever name) | FOO_BAR = (value received from Kubernetes) | foo.bar = ${{foo_bar}} (syntax depends on project language) |
+
+(*) Don't use dash `-` in values.yaml keys!
 
 ## More on how Kubernetes works
 
