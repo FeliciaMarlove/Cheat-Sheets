@@ -7,6 +7,12 @@
 |----|:----------------------------------------------------------------------|
 | 📝 | Container = application running in its environment                    |
 
+* [Images](#images)
+* [Containers](#containers)
+* [Resources](#resources)
+
+## Images
+
 ### Pull an image (ex latest nginx alpine)
 
 `docker pull nginx:alpine`
@@ -18,6 +24,16 @@
 ### See all images
 
 `docker images`
+
+### Delete an image
+
+`docker rmi image_name`
+
+### Delete all images (forcing)
+
+`docker rmi $(docker images -a -q) --force`
+
+## Containers
 
 ### Run an image in a container 
 
@@ -71,13 +87,7 @@ Exposes port 80 in the container on port 8085 on host
 
 `docker rm -f container_name`
 
-### Delete an image
-
-`docker rmi image_name`
-
-### Delete all images (forcing)
-
-`docker rmi $(docker images -a -q) --force`
+## Resources
 
 ### Remove unused resources
 
