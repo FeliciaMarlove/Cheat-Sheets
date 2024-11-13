@@ -47,6 +47,20 @@ Exposes port 80 in the container on port 8085 on host
 
 `docker run image_name ls /working_dir`
 
+### Run and create a persistent volume on host 
+
+Anything that will be written to the mentioned folder will be persisted in the same folder hierarchy on the host; hierarchy will be created if needed
+
+`docker run -v /path/to/folder image_name`
+
+### Run and create a persistent volume on host with a custom location
+
+What's written to `/path/to/folder` in the container will be persisted in `$(pwd)` on host (pwd = Print Working Directory on Mac/Linux).
+`$(pwd)` is the place from where the container is run.
+Windows PowerShell version of the variable is `${PWD}`
+
+`docker run -v $(pwd):/path/to/folder image_name`
+
 ### Run, remove container when it exits, use interactive terminal session, mount the current directory (pwd) on the host to /src (allows the container to access files from your current directory), use Python3 image, execute local hello.py located in /src on the container
 
 `docker run -rm -it -v $(pwd):/src python:3 python /src/hello.py`
@@ -89,11 +103,13 @@ Exposes port 80 in the container on port 8085 on host
 
 ## Resources
 
-### Remove unused resources
+### Remove unused resources (stopped containers, unused networks, dangling images that are not tagged or referenced by any container, unused build cache)
+
+By default, it does not include volumes, to do so add the flag `--volumes`
 
 `docker system prune`
 
-### Remove all unused resources (all stopped containers, networks not used by a container, images without associated container...)
+### Remove all unused resources (same + also remove unused images that are not currently being used by any container)
 
 `docker system prune -a`
  
