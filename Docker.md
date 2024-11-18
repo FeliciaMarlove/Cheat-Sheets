@@ -71,7 +71,9 @@ Windows PowerShell version of the variable is `${PWD}`
 
 ### Open the bash console of a running container
 
-`docker exec -it container_name bash`
+You can/should use `sh` (or `PowerShell` for Windows systems containers) instead of `bash` depending on what the container supports
+
+`docker exec -it <container_name or container_id> bash`
 
 ### Run from a "docker-compose".yml file to run multi-container applications (the file can define multiple services, networks, volumes...)
 
@@ -112,4 +114,34 @@ By default, it does not include volumes, to do so add the flag `--volumes`
 ### Remove all unused resources (same + also remove unused images that are not currently being used by any container)
 
 `docker system prune -a`
+
+### List networks
+
+There are (3) default networks created by Docker
+
+`docker network ls`
+
+### Create a network
+
+There are other options for the driver type, bridge is the simplest to implement
+
+`docker network create --driver bridge network_name`
+
+### Run a container in a specific network
+
+`--net` is a shorthand for `--network`
+
+Containers running in a same network can communicate with each other
+
+`docker run -d --net=network_name --name=container_name image_name`
+
+### Inspect a network
+
+See network config and containers inside that network
+
+`docker network inspect <network_id or network_name>`
+
+### Remove a network
+
+`docker network rm network_name`
  
