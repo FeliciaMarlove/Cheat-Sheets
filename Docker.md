@@ -10,6 +10,7 @@
 * [Images](#images)
 * [Containers](#containers)
 * [Resources](#resources)
+* [Docker-Compose](#docker-compose)
 
 ## Images
 
@@ -74,10 +75,6 @@ Windows PowerShell version of the variable is `${PWD}`
 You can/should use `sh` (or `PowerShell` for Windows systems containers) instead of `bash` depending on what the container supports
 
 `docker exec -it <container_name or container_id> bash`
-
-### Run from a "docker-compose".yml file to run multi-container applications (the file can define multiple services, networks, volumes...)
-
-`docker-compose -f /path/docker-postgres.yaml up -d` 
 
 ### Get container logs
 
@@ -144,4 +141,32 @@ See network config and containers inside that network
 ### Remove a network
 
 `docker network rm network_name`
+
+## Docker compose
+
+Run multi-container applications (the file can define multiple services, networks, volumes...) and avoid retyping the same sequence of CLI commands over and over again.
+
+When the file name is `docker-compose.yml`, you don't need to specify it in the command. Other, you'll need to add the flag `-f /path/docker-my-app.yaml` before the command.
+
+Use the `-d` flag for detached.
+
+### Build the image
+
+Needed for custom images
+
+`docker-compose build`
+
+### Run the container
+
+Default
+
+`docker-compose up`
+
+With specific file and detached
+
+`docker-compose -f /path/docker-postgres.yaml up -d`
+
+### Stop and remove the resources created by the `up` command
+
+`docker-compose down`
  
