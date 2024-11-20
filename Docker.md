@@ -146,6 +146,11 @@ See network config and containers inside that network
 
 Run multi-container applications (the file can define multiple services, networks, volumes...) and avoid retyping the same sequence of CLI commands over and over again.
 
+Advantages:
+* All in one file instead of typing several times the same commands for each service
+* Whole lifecycle management (build/start/stop/rebuild, view status of running services, log streaming...)
+* Configuration as code
+
 When the file name is `docker-compose.yml`, you don't need to specify it in the command. Other, you'll need to add the flag `-f /path/docker-my-app.yaml` before the command.
 
 Use the `-d` flag for detached.
