@@ -175,3 +175,34 @@ With specific file and detached
 
 `docker-compose down`
  
+### docker-compose.yml basic structure
+
+```
+version: "3.x"
+services:
+    [list of services: apps, databases...]
+    service_xyz:
+        container_name: custom_name_for_service_xyz
+        image: image_name
+        build: (where to get the docker file, context...= how to build => for custom image builds)
+            context:
+            dockerfile: (when the name is not the default "dockerfile")
+            args: (arguments passed at build time, accessible with $MY_ENV_VAR)
+                MY_ENV_VAR: some_value
+        environment:
+            - MY_OTHER_ENV_VAR: some_value (arguments passed at runtime) => there is another way to pass arguments via a file
+        networks: (networks the app is part of)
+            - ...
+        ports:
+            - "external:internal"
+        volumes:
+            - ...
+        depends_on:
+            - service_abc
+    service_abc:
+        ... 
+networks:
+    [list of networks]
+    network_def:
+        driver: bridge (driver type)
+```
