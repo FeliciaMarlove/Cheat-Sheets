@@ -176,6 +176,20 @@ With specific file and detached
 ### Stop and remove the resources created by the `up` command
 
 `docker-compose down`
+
+### Pass an argument from the command line
+
+Accessed with ${ARG_NAME}
+
+`export ARG_NAME=arg_value`
+
+`docker-compose build`
+
+### Push images to a registry
+
+Will push all images in the docker-compose file, taking into account the environment variables we set up
+
+`docker-compose push`
  
 ### docker-compose.yml basic structure
 
