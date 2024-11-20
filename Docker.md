@@ -163,7 +163,7 @@ Needed for custom images
 
 `docker-compose build`
 
-### Run the container
+### Build, (re)create and start containers
 
 Default
 
@@ -172,6 +172,20 @@ Default
 With specific file and detached
 
 `docker-compose -f /path/docker-postgres.yaml up -d`
+
+### Start an existing container
+
+`docker-compose start service_name`
+
+### List running containers for the given docker-compose configuration (defaults to docker-compose.yml)
+
+`docker-composer ps`
+
+### Stop a service
+
+Doesn't remove the container
+
+`docker-composer stop service_name`
 
 ### Stop and remove the resources created by the `up` command
 
