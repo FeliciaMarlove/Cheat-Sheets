@@ -155,6 +155,8 @@ When the file name is `docker-compose.yml`, you don't need to specify it in the 
 
 Use the `-d` flag for detached.
 
+Newer versions of Docker allow to use the command `docker compose` as well as `docker-compose`
+
 ### Build the image
 
 Needed for custom images
