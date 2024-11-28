@@ -1,0 +1,6 @@
+* [HTML editor (w3school)](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_editor)
+* [HTML - CSS - JavaScript (codepen)](https://codepen.io/rtd62/pen/ZamvqE)
+* [Kotlin playground (kotlinlang)](https://play.kotlinlang.org)
+* [TypeScript playground (typescriptlang)](https://www.typescriptlang.org/play)
+* [SQL online IDE (sqliteonline)](https://sqliteonline.com/)
+* [JWT decoder (jwt.io)](https://jwt.io/)
