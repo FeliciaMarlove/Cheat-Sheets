@@ -7,3 +7,4 @@
 * [Postgres](./Postgres.md)
 * [Git](Git.md)
 * [Linux](Linux.md)
+* [SQL](SQL.md)
