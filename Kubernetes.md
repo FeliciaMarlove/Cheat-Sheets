@@ -1,7 +1,5 @@
 # Kubernetes cheat sheet
 
-<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
-
 * [Kubectl](#kubectl)
     + [Context](#context)
         - [List all contexts](#list-all-contexts)
@@ -40,14 +38,11 @@
      + [Loose coupling](#loose-coupling)
      + [Reference to configMap values in manifests](#reference-to-configmap-values-in-manifests)
 
-<!-- TOC end -->
-
 ## Kubectl
 
 ### Context
 
-| 📝 | context = group of access parameters (cluster, user, namespace...) |
-|----|:-------------------------------------------------------------------|
+📝 context = group of access parameters (cluster, user, namespace...)
 
 #### List all contexts
 

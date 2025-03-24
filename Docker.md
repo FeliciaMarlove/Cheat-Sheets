@@ -1,7 +1,10 @@
 # Docker cheat sheet
 
-| 💡 When referencing a container, we can just type the first few letters of the ID |
-|-----------------------------------------------------------------------------------|
+---
+
+💡 When referencing a container, we can just type the first few letters of the ID
+
+---
 
 | 📝 | Image = the packaged artifact that can be moved around -> not running |
 |----|:----------------------------------------------------------------------|
@@ -207,8 +210,11 @@ Will push all images in the docker-compose file, taking into account the environ
  
 ### docker-compose.yml basic structure
 
-| ⚠️ `depends_on` just starts those services first but doesn't check that the service is actually running => doesn't suppress need to add some check of the status and retry logic in the application |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+---
+
+⚠️ `depends_on` just starts those services first but doesn't check that the service is actually running => doesn't suppress need to add some check of the status and retry logic in the application
+
+---
 
 ```
 version: "3.x"

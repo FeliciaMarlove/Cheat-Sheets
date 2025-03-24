@@ -32,8 +32,11 @@ Edit .bashrc or .bash_aliases
 
 `nano ~/.bashrc`
 
-| ℹ️ For .bash_aliases to work, you need the following script in you .bashrc |
-|----------------------------------------------------------------------------|
+---
+
+ℹ️ For .bash_aliases to work, you need the following script in you .bashrc
+
+---
 
 ```
 if [ -f ~/.bash_aliases ]; then

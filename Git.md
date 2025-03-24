@@ -14,8 +14,11 @@
 
 ### Search for commit content (eg source code)
 
-| ℹ️ The search term can be a string or a regex. |
-|------------------------------------------------|
+---
+
+ℹ️ The search term can be a string or a regex.
+
+---
 
 Search for the first occurrence of a term in the working directory.
 
@@ -64,8 +67,11 @@ Reset the upstream branch for the new_name local branch
 
 Move HEAD back x + 1 commits (HEAD will be just before the last 2 commits), undo ahead changes and re-add the changes as staged, ready to be committed again (changes are not lost).
 
-| ⚠️ Using `reset --hard` means changes are lost. |
-|-------------------------------------------------|
+---
+
+⚠️ Using `reset --hard` means changes are lost.
+
+---
 
 `git reset --soft HEAD~2`
 
@@ -87,8 +93,11 @@ Push changes (if changes existed on remote, you'll need to force-push)
 
 ## Rewrite history
 
-| ⚠️ DANGER ZONE |
-|----------------|
+---
+
+⚠️ ***DANGER ZONE***
+
+---
 
 ### Rebase interactive
 
